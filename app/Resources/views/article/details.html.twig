@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<a class="btn btn-default" href="/"> Back To Articles</a>
+	<hr/>
+	<h2 class='page-header'>{{article.Designation}}</h2>
+	<ul class="list-group">
+		<li class="list-group-item">Designation{{article.Designation}}</li>
+		<li class="list-group-item">Lieu: {{article.Lieu}}</li>
+		<li class="list-group-item">Marque: {{article.Marque}}</li>
+		<li class="list-group-item">Modele: {{article.Modele}}</li>
+		<li class="list-group-item">Societe: {{article.Societe}}</li>
+		<li class="list-group-item">Numero de serie: {{article.numSerie}}</li>
+		<li class="list-group-item">Date de mise en service: {{article.DateSErvice|date("m/d/Y")}}</li>
+	</ul>
+{% endblock %}

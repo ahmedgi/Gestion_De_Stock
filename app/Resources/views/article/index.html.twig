@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h2 class="page-header"> La Liste Des Articles</h2>
+	<table class="table table-striped"> 
+		<thead>
+			<tr>
+			 <th>#</th>
+			 <th>Lieu</th>
+			 <th>Designation</th>
+			 <th>Date_Mise_en_service</th> 
+			 <th></th>
+			</tr> 
+		</thead> 
+		<tbody> 
+			{% for article in articles %}
+			<tr> 
+				<th scope="row">{{article.id}}</th>
+				<td>{{article.Lieu}}</td> 
+				<td>{{article.Designation}}</td> 
+				<td>{{article.DateService|date("m/d/Y")}}</td> 
+				<td>
+					<a href="/article/details/{{article.id}}" class="btn btn-info">View</a>
+					<a href="/article/edit/{{article.id}}" class="btn btn-warning">Edit</a>
+					<a href="/article/delete/{{article.id}}" class="confirmModal btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet Article ?')" >Delete</a>
+				</td>
+			</tr> 
+			{% endfor %} 
+		</tbody> 
+	</table>
+
+	<div id="dialog-confirm" title="Confirmation de la suppression" style="display:none;">
+	  <p>
+	    <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+	    Etes-vous sûr de vouloir supprimer cet élément ?
+	   </p>
+	</div>
+
+{% endblock %}

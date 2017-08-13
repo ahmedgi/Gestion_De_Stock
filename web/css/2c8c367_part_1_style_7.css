@@ -1,0 +1,63 @@
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;   
+}
+body{
+	background: #FFF8DC;
+}
+.navbar{
+	background: #4169E1;
+}
+.site-footer{
+	background: #68dff0;
+	color: #fff;
+	padding: 10px 0;
+	position: fixed;
+	right: 0;
+	left: 0;
+	bottom: 0
+}
+.wrapper{
+	padding: 0 15px 50px;
+	width: 100%;
+}
+
+.mytable th,td{
+	padding: 10px;
+    text-align: left;
+}
+.btn-theme03{
+	color: #fff;
+	background-color: #6A5ACD;
+	border-color: #37bc9b;
+}
+.text-center {
+    text-align: center;
+}
+
+.dash td {
+    width: 10%;
+}
+.dash i {
+    font-size: 4em;
+    margin-bottom: 10px;
+}
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-weight: 400;
+    line-height: 1;
+}
+a:focus, a:hover {
+    color: #2a6496;
+}
+a {
+    color: #428bca;
+}
+.dash td a {
+    color: #FFF;
+    display: block;
+    padding: 15px 5px;
+    font-weight: bold;
+}
+
+

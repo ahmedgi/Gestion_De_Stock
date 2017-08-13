@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Entity;
-use AppBundle\Entity\Categorie;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -81,7 +80,7 @@ class Article
     private $BonLivraison;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="Articles")
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="articles")
      * @ORM\JoinColumn(name="Categorie_id", referencedColumnName="id")
      */
     private $Categorie;
@@ -287,29 +286,5 @@ class Article
     public function getBonLivraison()
     {
         return $this->BonLivraison;
-    }
-
-    /**
-     * Set categorie
-     *
-     * @param \AppBundle\Entity\Categorie $categorie
-     *
-     * @return Article
-     */
-    public function setCategorie($categorie = null)
-    {
-        $this->Categorie = $categorie;
-
-        return $this;
-    }
-
-    /**
-     * Get categorie
-     *
-     * @return Categorie
-     */
-    public function getCategorie()
-    {
-        return $this->Categorie;
     }
 }

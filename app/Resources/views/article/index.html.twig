@@ -2,28 +2,32 @@
 
 {% block body %}
 
-	<h2 class="page-header"> La Liste Des Articles</h2>
-	<table class="table table-striped"> 
+	<h3 >Articles
+		<a href="/article/create" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Ajouter Article</a>
+	</h3>
+	<p>Veuillez consulter le résultat ci-dessous</p>
+	<br/>
+	<table id="example" class="table table-bordered " style="margin-bottom:5px;" role="grid">
 		<thead>
 			<tr>
 			 <th>#</th>
 			 <th>Lieu</th>
 			 <th>Designation</th>
 			 <th>Date_Mise_en_service</th> 
-			 <th></th>
+			 <th>Action</th>
 			</tr> 
 		</thead> 
 		<tbody> 
 			{% for article in articles %}
 			<tr> 
-				<th scope="row">{{article.id}}</th>
+				<th scope="row">{{article.id}}</th>	
 				<td>{{article.Lieu}}</td> 
 				<td>{{article.Designation}}</td> 
 				<td>{{article.DateService|date("m/d/Y")}}</td> 
 				<td>
-					<a href="/article/details/{{article.id}}" class="btn btn-info">View</a>
-					<a href="/article/edit/{{article.id}}" class="btn btn-warning">Edit</a>
-					<a href="/article/delete/{{article.id}}" class="confirmModal btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet Article ?')" >Delete</a>
+					<a href="/article/details/{{article.id}}" class="btn btn-info">Details</a>
+					<a href="/article/edit/{{article.id}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+					<a href="/article/delete/{{article.id}}" class="confirmModal btn btn-danger" ><i class="fa fa-trash-o fa-lg"></i> </a>
 				</td>
 			</tr> 
 			{% endfor %} 

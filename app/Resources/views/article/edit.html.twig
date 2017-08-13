@@ -3,10 +3,43 @@
 {% block body %}
 
 <h2 class="page-header"> Modifier une article</h2>
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-
-    <input type="submit" value="Modifier"  class="btn btn-primary"/>
-{{ form_end(form) }}
-
+<div class="col-md-12">
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.Lieu) }} {{ form_widget(form.Lieu) }} {{ form_errors(form.Lieu) }}</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.Designation) }} {{ form_widget(form.Designation) }} {{ form_errors(form.Designation) }}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.Marque) }} {{ form_widget(form.Marque) }} {{ form_errors(form.Marque) }}
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.Modele) }} {{ form_widget(form.Modele) }} {{ form_errors(form.Modele) }}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.societe) }} {{ form_widget(form.societe) }} {{ form_errors(form.societe) }}
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.DateService) }} {{ form_widget(form.DateService) }} {{ form_errors(form.DateService) }}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group"> <input type="submit" value="Modifier"  class="btn btn-primary"/> </div>
+		</div>
+	</div>
+	{{ form_end(form) }}
+</div>
+    
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="">
+<h3 class="page-header"> <i class="fa fa-plus" aria-hidden="true"></i>
+ importer les Categories</h3>
+<p>Entrez les informations ci-dessous</p>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+                <a href="/categorie/generate/csv" class="btn btn-info btn-sm pull-right"><i class="fa fa-download"></i> Download sample File</a>
+                <p><span class="text-info">La première ligne du fichier csv téléchargé devrait rester telle quelle. Ne modifiez pas l'ordre des colonnes.</span><br><span class="text-success">L'ordre de colonne correct est (<b>Code de catégorie, Catégorie Name</b>)</span> <span class="text-primary">&amp; vous devez suivre cela. Si vous utilisez une autre langue puis l'anglais, assurez-vous que le fichier csv est codé UTF-8 et qu'il n'est pas enregistré avec la marque de commande d'octet(BOM)</span></p>
+              </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				{{ form_start(form) }}
+					{{ form_widget(form) }}
+					<input type="submit" value="Ajouter Categorie"  class="btn btn-primary"/>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

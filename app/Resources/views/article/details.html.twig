@@ -4,13 +4,43 @@
 	<a class="btn btn-default" href="/"> Back To Articles</a>
 	<hr/>
 	<h2 class='page-header'>{{article.Designation}}</h2>
-	<ul class="list-group">
-		<li class="list-group-item">Designation{{article.Designation}}</li>
-		<li class="list-group-item">Lieu: {{article.Lieu}}</li>
-		<li class="list-group-item">Marque: {{article.Marque}}</li>
-		<li class="list-group-item">Modele: {{article.Modele}}</li>
-		<li class="list-group-item">Societe: {{article.Societe}}</li>
-		<li class="list-group-item">Numero de serie: {{article.numSerie}}</li>
-		<li class="list-group-item">Date de mise en service: {{article.DateSErvice|date("m/d/Y")}}</li>
-	</ul>
+	<table border="1" class="mytable">
+		<tr>
+			<th class="col-md-4">Designation : </th>
+			<td class="col-md-4">{{article.Designation}}</td>
+		</tr>
+		<tr>
+			<th>Lieu:  : </th>
+			<td>{{article.Designation}}</td>
+		</tr>
+		<tr>
+			<th>Marque: </th>
+			<td>{{article.Marque}}</td>
+		</tr>
+		<tr>
+			<th>Modele : </th>
+			<td>{{article.Modele}}</td>
+		</tr>
+		<tr>
+			<th>Numero de serie : </th>
+			<td>{{article.numSerie}}</td>
+		</tr>
+		<tr>
+			<th>Societe : </th>
+			<td>{{article.Societe}}</td>
+		</tr>
+		<tr>
+			<th>Date de mise en service : </th>
+			<td>{{article.DateSErvice|date("m/d/Y")}}</td>
+		</tr>
+		<tr>
+			<th>BonLivraison : </th>
+			<td><a href="{{ asset('uploads/Articles/' ~ article.BonLivraison) }}">
+			Imprimer BonLivraison</a></td>
+		</tr>
+		<tr>
+			<th>BonLivraison : </th>
+			<td><a href="/article/generate/{{article.id}}" class="btn btn-info">Genrer BonLivraison</a></td>
+		</tr>
+	</table>
 {% endblock %}

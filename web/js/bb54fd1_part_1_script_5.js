@@ -23,4 +23,8 @@ $(document).ready(function() {
         theHREF = $(this).attr("href");
         $("#dialog-confirm").dialog("open");
     });
+    $(function(){
+        $("#example").dataTable();
+    });
+
 });

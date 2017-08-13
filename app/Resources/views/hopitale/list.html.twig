@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h3 >Hopitales
+		<a href="/Hopitale/create" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Ajouter Hopitale</a>
+	</h3>
+	<br/>
+	<p>Veuillez consulter le résultat ci-dessous</p>
+	<table id="example" class="table table-bordered " style="margin-bottom:5px;" role="grid">
+		<thead>
+			<tr>
+			 <th>#</th>
+			 <th>Name</th>
+			 <th>address</th> 
+			 <th>Action</th>
+			</tr> 
+		</thead> 
+		<tbody> 
+			{% for hopitale in hopitales %}
+			<tr> 
+				<th scope="row">{{hopitale.id}}</th>	
+				<td>{{hopitale.name}}</td>  
+				<td>{{hopitale.adresse }}</td> 
+				<td>
+					<a href="edit/{{hopitale.id}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+					<a href="delete/{{hopitale.id}}" class="confirmModal btn btn-danger" ><i class="fa fa-trash-o fa-lg"></i> </a>
+				</td>
+			</tr> 
+			{% endfor %} 
+		</tbody> 
+	</table>
+
+	<div id="dialog-confirm" title="Confirmation de la suppression" style="display:none;">
+	  <p>
+	    <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+	    Etes-vous sûr de vouloir supprimer cet élément ?
+	   </p>
+	</div>
+
+{% endblock %}

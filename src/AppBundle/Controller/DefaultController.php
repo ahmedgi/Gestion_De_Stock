@@ -8,6 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    /**
+     * @Route("/", name="Home")
+     */
+    public function HomeAction()
+    {
+
+        return $this->render('default/home.html.twig');
+    }
    
 }
 ?>

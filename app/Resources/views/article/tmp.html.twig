@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="page-header"> Ajouter une article</h2>
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
+	{{ form_widget(form) }}
+	<div class="form-group">
+	<label for="lieu" class="col-sm-2 control-label">Lieu</label>
+	<div class="col-sm-10">
+	  <input name="Lieu" type="Lieu" class="form-control" id="inputlieu" placeholder="Lieu">
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="Designation" class="col-sm-2 control-label">Designation</label>
+	<div class="col-sm-10">
+	  <input type="text" name="Designation" class="form-control" id="inputDesignation" placeholder="Designation">
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="Marque" class="col-sm-2 control-label">Marque</label>
+	<div class="col-sm-10">
+	  <input type="text" name="Marque" class="form-control" id="inputMarque" placeholder="Marque">
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="Modele" class="col-sm-2 control-label">Modele</label>
+	<div class="col-sm-10">
+	  <input type="text" name="Modele" class="form-control" id="inputModele" placeholder="Modele">
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="societe" class="col-sm-2 control-label">societe</label>
+	<div class="col-sm-10">
+	  <input type="text" name="societe" class="form-control" id="inputsociete" placeholder="societe">
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="file" class="col-sm-2 control-label">BonLivraison</label>
+	<div class="col-sm-10">
+	  <input type="file" name="BonLivraison" class="form-control" id="inputBonLivraison"/>
+	</div>
+	</div>
+	<div class="form-group">
+	<label for="date" class="col-sm-2 control-label">Date De Mise En service</label>
+	<div class="col-sm-10">
+	  <input type="date" name="date" class="form-control" id="inputdate" >
+	</div>
+	</div>
+	<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+	  <button type="submit" class="btn btn-default">Ajouter</button>
+	</div>
+	</div>
+{{ form_end(form) }}
+
+{% endblock %}

@@ -1067,6 +1067,7 @@
             "time": "2016-11-11 18:43:20"
         },
         {
+<<<<<<< HEAD
             "name": "mbence/opentbs-bundle",
             "version": "v1.9.7",
             "target-dir": "MBence/OpenTBSBundle",
@@ -1119,6 +1120,8 @@
             "time": "2016-09-13 09:04:07"
         },
         {
+=======
+>>>>>>> 2dceebe6b58b87b052bf4e078ec2cbf5cefae9b6
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {

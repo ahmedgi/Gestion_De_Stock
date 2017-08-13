@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+
 class ArticleController extends Controller
 {
     /**
@@ -27,6 +28,7 @@ class ArticleController extends Controller
 
         return $this->render('article/index.html.twig',array('articles' => $Articles));
     }
+
     /**
      * @Route("/article/create", name="article_create")
      */
@@ -44,6 +46,7 @@ class ArticleController extends Controller
         ->add('societe', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('BonLivraison', FileType::class, array('label' => 'BonLivraison (PDF file)','attr'=>array('accept'=>'application/pdf')))
         ->add('DateService', DateType::class,array('attr' =>array('class'=>'formcontrol','style'=>'margin-bottom:15px')))
+
         ->getForm();
 
         $form->handleRequest($request);
@@ -158,6 +161,7 @@ class ArticleController extends Controller
 
         return $this->render('article/details.html.twig',array('article' => $Article));
     }
+
 
     /**
      * @Route("/article/delete/{id}", name="article_delete")

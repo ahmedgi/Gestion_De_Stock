@@ -40,10 +40,15 @@ class Hopitale
      * @ORM\OneToMany(targetEntity="Service", mappedBy="Hopitale")
      */
     private $Services;
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="Hopitale")
+     */
+    private $Articles;
 
     public function __construct()
     {
         $this->Services = new ArrayCollection();
+        $this->Articles = new ArrayCollection();
     }
 
 

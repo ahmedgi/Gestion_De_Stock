@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Categorie;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,27 +39,44 @@ class ArticleController extends Controller
         $Categories = $this->getDoctrine()
         ->getRepository('AppBundle:Categorie')
         ->findAll();
+
+        $Services = $this->getDoctrine()
+        ->getRepository('AppBundle:Service')
+        ->findAll();
+
+        $Hopitales = $this->getDoctrine()
+        ->getRepository('AppBundle:Hopitale')
+        ->findAll();
         $form = $this->createFormBuilder($Article)
-        ->add('Lieu', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Designation', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Marque', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Modele', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('societe', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('BonLivraison', FileType::class, array('label' => 'BonLivraison (PDF file)','attr'=>array('accept'=>'application/pdf')))
         ->add('DateService', DateType::class,array('attr' =>array('class'=>'formcontrol','style'=>'margin-bottom:15px')))
-
+        ->add('Date_Acquisition', DateType::class,array('attr' =>array('class'=>'formcontrol','style'=>'margin-bottom:15px')))
+        ->add('Num_Inventaire', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
+        ->add('NumSerie', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
+        ->add('Source_de_Financement', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //die("the form is submitted");
-            $Lieu = $form['Lieu']->getData();
             $Designation = $form['Designation']->getData();
             $Marque = $form['Marque']->getData();
             $Modele = $form['Modele']->getData();
             $societe = $form['societe']->getData();
             $DateService = $form['DateService']->getData();
+            $CategorieName= $_POST['Categorie'];
+            $ServiceName= $_POST['Service'];
+            $LieuName= $_POST['Lieu'];
+            $Etat = $_POST['etat'];
+            $Date_Acquisition = $form['Date_Acquisition']->getData();
+            $Num_Inventaire = $form['Num_Inventaire']->getData();
+            $NumSerie = $form['NumSerie']->getData();
+            $Source_de_Financement = $form['Source_de_Financement']->getData();
              // $file stores the uploaded PDF file
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $Article->getBonLivraison();
@@ -71,18 +89,40 @@ class ArticleController extends Controller
                 $this->getParameter('Articles_directory'),
                 $fileName
             );
+            // get the categorie
+            $Categorie = $this->getDoctrine()
+            ->getRepository('AppBundle:Categorie')
+            ->findOneBy(
+                array('name' =>$CategorieName)
+            );
+            $Service = $this->getDoctrine()
+            ->getRepository('AppBundle:Service')
+            ->findOneBy(
+                array('nom' =>$ServiceName)
+            );
+            $Hopitale = $this->getDoctrine()
+            ->getRepository('AppBundle:Hopitale')
+            ->findOneBy(
+                array('name' =>$LieuName)
+            );
 
+            $Article->setCategorie($Categorie);
+            $Article->setService($Service);
+            $Article->sethopitale($Hopitale);
             // Update the 'brochure' property to store the PDF file name
             // instead of its contents
             $Article->setBonLivraison($fileName);
 
-            $Article->setLieu($Lieu);
             $Article->setDesignation($Designation);
             $Article->setMarque($Marque);
             $Article->setModele($Modele);
             $Article->setSociete($societe);
             $Article->setDateService($DateService);
-            $Article->setNumSerie('2656565');  
+            $Article->setNumSerie($NumSerie);  
+            $Article->setEtat($Etat);
+            $Article->setDateAcquisition($Date_Acquisition);
+            $Article->setNumInventaire($Num_Inventaire);
+            $Article->setSourceDeFinancement($Source_de_Financement);
 
             $em=$this->getDoctrine()->getManager();
             $em->persist($Article);
@@ -93,7 +133,8 @@ class ArticleController extends Controller
             return $this->redirectToRoute('article_liste');
         }
 
-        return $this->render('article/create.html.twig',array('form'=>$form->createView(),"Categories"=>$Categories));
+        return $this->render('article/create.html.twig',array('form'=>$form->createView(),"Categories"=>$Categories,
+            "Services"=>$Services,"Hopitales"=>$Hopitales));
     }
     /**
      * @Route("/article/edit/{id}", name="article_edit")
@@ -103,42 +144,85 @@ class ArticleController extends Controller
         $Article = $this->getDoctrine()
         ->getRepository('AppBundle:Article')
         ->find($id);
-        $Article->setBonLivraison(
-            new File($this->getParameter('Articles_directory').'/'.$Article->getBonLivraison())
-        );
+        $Categories = $this->getDoctrine()
+        ->getRepository('AppBundle:Categorie')
+        ->findAll();
+
+        $Services = $this->getDoctrine()
+        ->getRepository('AppBundle:Service')
+        ->findAll();
+
+        $Hopitales = $this->getDoctrine()
+        ->getRepository('AppBundle:Hopitale')
+        ->findAll();
+
 
         $form = $this->createFormBuilder($Article)
-        ->add('Lieu', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Designation', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Marque', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Modele', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('societe', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('DateService', DateType::class,array('attr' =>array('class'=>'formcontrol','style'=>'margin-bottom:15px')))
-
+        ->add('Num_Inventaire', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
+        ->add('Date_Acquisition', DateType::class,array('attr' =>array('class'=>'formcontrol','style'=>'margin-bottom:15px')))
+        ->add('Source_de_Financement', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
+         ->add('NumSerie', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //get the data
-            $Lieu = $form['Lieu']->getData();
             $Designation = $form['Designation']->getData();
             $Marque = $form['Marque']->getData();
             $Modele = $form['Modele']->getData();
             $societe = $form['societe']->getData();
             $DateService = $form['DateService']->getData();
+            $CategorieName= $_POST['Categorie'];
+            $ServiceName= $_POST['Service'];
+            $LieuName= $_POST['Lieu'];
+            $Etat = $_POST['etat'];
+            $Date_Acquisition = $form['Date_Acquisition']->getData();
+            $Num_Inventaire = $form['Num_Inventaire']->getData();
+            $NumSerie = $form['NumSerie']->getData();
+            $Source_de_Financement = $form['Source_de_Financement']->getData();
+
+            // get the categorie
+            $Categorie = $this->getDoctrine()
+            ->getRepository('AppBundle:Categorie')
+            ->findOneBy(
+                array('name' =>$CategorieName)
+            );
+            $Service = $this->getDoctrine()
+            ->getRepository('AppBundle:Service')
+            ->findOneBy(
+                array('nom' =>$ServiceName)
+            );
+            $Hopitale = $this->getDoctrine()
+            ->getRepository('AppBundle:Hopitale')
+            ->findOneBy(
+                array('name' =>$LieuName)
+            );
 
 
 
             $em=$this->getDoctrine()->getManager();
             $Article=$em->getRepository('AppBundle:Article')->find($id);
 
-            $Article->setLieu($Lieu);
+            $Article->setCategorie($Categorie);
+            $Article->setService($Service);
+            $Article->sethopitale($Hopitale);
+
             $Article->setDesignation($Designation);
             $Article->setMarque($Marque);
             $Article->setModele($Modele);
             $Article->setSociete($societe);
-            $Article->setDateService($DateService); 
+            $Article->setDateService($DateService);
+            $Article->setNumSerie($NumSerie);  
+            $Article->setEtat($Etat);
+            $Article->setDateAcquisition($Date_Acquisition);
+            $Article->setNumInventaire($Num_Inventaire);
+            $Article->setSourceDeFinancement($Source_de_Financement); 
 
             $em->flush();
             $this->addFlash(
@@ -148,7 +232,7 @@ class ArticleController extends Controller
         }
 
         return $this->render('article/edit.html.twig',
-            array('form' =>$form->createView()));
+            array('form' =>$form->createView(),"article"=>$Article,"Categories"=>$Categories,"Services"=>$Services,"Hopitales"=>$Hopitales));
     }
     /**
      * @Route("/article/details/{id}", name="article_details")

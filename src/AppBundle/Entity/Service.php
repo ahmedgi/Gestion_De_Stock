@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Article;
 
 /**
  * Service
@@ -41,6 +42,17 @@ class Service
      * @ORM\JoinColumn(name="Hopitale_id", referencedColumnName="id")
      */
     private $Hopitale;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="Service")
+     */
+    private $Articles;
+
+    public function __construct()
+    {
+        $this->Articles = new ArrayCollection();
+    }
+
 
 
     /**
@@ -123,5 +135,39 @@ class Service
     public function getHopitale()
     {
         return $this->Hopitale;
+    }
+
+    /**
+     * Add article
+     *
+     * @param \AppBundle\Entity\Article $article
+     *
+     * @return Service
+     */
+    public function addArticle(\AppBundle\Entity\Article $article)
+    {
+        $this->Articles[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \AppBundle\Entity\Article $article
+     */
+    public function removeArticle(\AppBundle\Entity\Article $article)
+    {
+        $this->Articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->Articles;
     }
 }

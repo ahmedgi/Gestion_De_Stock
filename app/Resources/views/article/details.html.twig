@@ -1,46 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<a class="btn btn-default" href="/"> Back To Articles</a>
-	<hr/>
-	<h2 class='page-header'>{{article.Designation}}</h2>
-	<table border="1" class="mytable">
-		<tr>
-			<th class="col-md-4">Designation : </th>
-			<td class="col-md-4">{{article.Designation}}</td>
-		</tr>
-		<tr>
-			<th>Lieu:  : </th>
-			<td>{{article.Designation}}</td>
-		</tr>
-		<tr>
-			<th>Marque: </th>
-			<td>{{article.Marque}}</td>
-		</tr>
-		<tr>
-			<th>Modele : </th>
-			<td>{{article.Modele}}</td>
-		</tr>
-		<tr>
-			<th>Numero de serie : </th>
-			<td>{{article.numSerie}}</td>
-		</tr>
-		<tr>
-			<th>Societe : </th>
-			<td>{{article.Societe}}</td>
-		</tr>
-		<tr>
-			<th>Date de mise en service : </th>
-			<td>{{article.DateSErvice|date("m/d/Y")}}</td>
-		</tr>
-		<tr>
-			<th>BonLivraison : </th>
-			<td><a href="{{ asset('uploads/Articles/' ~ article.BonLivraison) }}">
-			Imprimer BonLivraison</a></td>
-		</tr>
-		<tr>
-			<th>BonLivraison : </th>
-			<td><a href="/article/generate/{{article.id}}" class="btn btn-info">Genrer BonLivraison</a></td>
-		</tr>
-	</table>
+	<a class="btn btn-default" href="/article"> Back To Articles</a>
+	<h2 class='page-header'>Plus De Details</h2>
+	<ul class="list-group">
+	  <li class="list-group-item"><b>Lieu : </b> : {{article.getHopitale().name}}</li>
+	  <li class="list-group-item"><b>Designation : </b> {{article.Designation}}</li>
+	  <li class="list-group-item"><b>Marque : </b> {{article.Marque}}</li>
+	  <li class="list-group-item"><b>Modele : </b> {{article.Modele}}</li>
+	  <li class="list-group-item"><b>Numero de serie : </b> {{article.numSerie}}</li>
+	  <li class="list-group-item"><b>Societe : </b> {{article.Societe}}</li>
+	  <li class="list-group-item"><b>Etat : </b> {{article.Etat}}</li>
+	  <li class="list-group-item"><b>Numero d'inventaire : </b> {{article.getNumInventaire()}}</li>
+	  <li class="list-group-item"><b>Numero de Serie : </b> {{article.NumSerie}}</li>
+	  <li class="list-group-item"><b>Service : </b> {{article.getService().nom}}</li>
+	  <li class="list-group-item"><b>Categorie : </b> {{article.getCategorie().Name}}</li>
+	  <li class="list-group-item"><b>Source de Financement : </b> {{article.getSourceDeFinancement()}}</li>
+	  <li class="list-group-item"><b>Date de mise en service : </b> {{article.DateService|date("m/d/Y")}}</li>
+	  <li class="list-group-item"><b>Date d'acquisition : </b> {{article.getDateAcquisition()|date("m/d/Y") }}</li>
+	  <li class="list-group-item"><b>BonLivraison : </b> <a href="{{ asset('uploads/Articles/' ~ article.BonLivraison) }}">
+			Imprimer BonLivraison</a></li>
+	  <li class="list-group-item"><b>Bon De Decharge : </b> <a href="/article/generate/{{article.id}}" class="btn btn-info">Generer le Bon de decharge</a></li>
+	</ul>
 {% endblock %}

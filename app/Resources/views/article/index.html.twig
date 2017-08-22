@@ -21,7 +21,7 @@
 			{% for article in articles %}
 			<tr> 
 				<th scope="row">{{article.id}}</th>
-				<td>{{article.Lieu}}</td> 
+				<td>{{article.getHopitale().name}}</td> 
 				<td>{{article.Designation}}</td> 
 				<td>{{article.DateService|date("m/d/Y")}}</td> 
 				<td>

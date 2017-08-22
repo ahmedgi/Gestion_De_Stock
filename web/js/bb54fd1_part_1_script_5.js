@@ -27,4 +27,6 @@ $(document).ready(function() {
         $("#example").dataTable();
     });
 
+    $('.dataTables_filter').after($('#afterr'));
+
 });

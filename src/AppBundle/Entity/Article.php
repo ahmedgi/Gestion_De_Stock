@@ -2,8 +2,11 @@
 
 namespace AppBundle\Entity;
 use AppBundle\Entity\Categorie;
+use AppBundle\Entity\Service;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Archive;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,12 +26,6 @@ class Article
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Lieu", type="string", length=255)
-     */
-    private $lieu;
 
     /**
      * @var string
@@ -66,11 +63,39 @@ class Article
     private $societe;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Num_Inventaire", type="string", length=255)
+     */
+    private $Num_Inventaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Source_de_Financement", type="string", length=255)
+     */
+    private $Source_de_Financement;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Date_Acquisition", type="datetimetz")
+     */
+    private $Date_Acquisition;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="DateService", type="datetimetz")
      */
-    private $dateService;
+    private $DateService;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Etat", type="string", length=255)
+     */
+    private $Etat;
     
     /**
      * @ORM\Column(type="string")
@@ -86,6 +111,28 @@ class Article
      */
     private $Categorie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Hopitale", inversedBy="Articles")
+     * @ORM\JoinColumn(name="Hopitale_id", referencedColumnName="id")
+     */
+    private $Hopitale;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Service", inversedBy="Articles")
+     * @ORM\JoinColumn(name="Service_id", referencedColumnName="id")
+     */
+    private $Service;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Archive", mappedBy="Article")
+     */
+    private $Archives;
+
+    public function __construct()
+    {
+        $this->Archives = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -97,29 +144,6 @@ class Article
         return $this->id;
     }
 
-    /**
-     * Set lieu
-     *
-     * @param string $lieu
-     *
-     * @return Article
-     */
-    public function setLieu($lieu)
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    /**
-     * Get lieu
-     *
-     * @return string
-     */
-    public function getLieu()
-    {
-        return $this->lieu;
-    }
 
     /**
      * Set designation
@@ -242,30 +266,6 @@ class Article
     }
 
     /**
-     * Set dateService
-     *
-     * @param \DateTime $dateService
-     *
-     * @return Article
-     */
-    public function setDateService($dateService)
-    {
-        $this->dateService = $dateService;
-
-        return $this;
-    }
-
-    /**
-     * Get dateService
-     *
-     * @return \DateTime
-     */
-    public function getDateService()
-    {
-        return $this->dateService;
-    }
-
-    /**
      * Set bonLivraison
      *
      * @param string $bonLivraison
@@ -311,5 +311,208 @@ class Article
     public function getCategorie()
     {
         return $this->Categorie;
+    }
+
+    /**
+     * Set numInventaire
+     *
+     * @param string $numInventaire
+     *
+     * @return Article
+     */
+    public function setNumInventaire($numInventaire)
+    {
+        $this->Num_Inventaire = $numInventaire;
+
+        return $this;
+    }
+
+    /**
+     * Get numInventaire
+     *
+     * @return string
+     */
+    public function getNumInventaire()
+    {
+        return $this->Num_Inventaire;
+    }
+
+    /**
+     * Set dateAcquisition
+     *
+     * @param \DateTime $dateAcquisition
+     *
+     * @return Article
+     */
+    public function setDateAcquisition($dateAcquisition)
+    {
+        $this->Date_Acquisition = $dateAcquisition;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAcquisition
+     *
+     * @return \DateTime
+     */
+    public function getDateAcquisition()
+    {
+        return $this->Date_Acquisition;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return Article
+     */
+    public function setEtat($etat)
+    {
+        $this->Etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->Etat;
+    }
+
+
+    /**
+     * Set dateService
+     *
+     * @param \DateTime $dateService
+     *
+     * @return Article
+     */
+    public function setDateService($dateService)
+    {
+        $this->DateService = $dateService;
+
+        return $this;
+    }
+
+    /**
+     * Get dateService
+     *
+     * @return \DateTime
+     */
+    public function getDateService()
+    {
+        return $this->DateService;
+    }
+
+    /**
+     * Add archive
+     *
+     * @param \AppBundle\Entity\Archive $archive
+     *
+     * @return Article
+     */
+    public function addArchive(\AppBundle\Entity\Archive $archive)
+    {
+        $this->Archives[] = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Remove archive
+     *
+     * @param \AppBundle\Entity\Archive $archive
+     */
+    public function removeArchive(\AppBundle\Entity\Archive $archive)
+    {
+        $this->Archives->removeElement($archive);
+    }
+
+    /**
+     * Get archives
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArchives()
+    {
+        return $this->Archives;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \AppBundle\Entity\Service $service
+     *
+     * @return Article
+     */
+    public function setService(\AppBundle\Entity\Service $service = null)
+    {
+        $this->Service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \AppBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->Service;
+    }
+
+    /**
+     * Set sourceDeFinancement
+     *
+     * @param string $sourceDeFinancement
+     *
+     * @return Article
+     */
+    public function setSourceDeFinancement($sourceDeFinancement)
+    {
+        $this->Source_de_Financement = $sourceDeFinancement;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceDeFinancement
+     *
+     * @return string
+     */
+    public function getSourceDeFinancement()
+    {
+        return $this->Source_de_Financement;
+    }
+
+    /**
+     * Set hopitale
+     *
+     * @param \AppBundle\Entity\Hopitale $hopitale
+     *
+     * @return Article
+     */
+    public function setHopitale(\AppBundle\Entity\Hopitale $hopitale = null)
+    {
+        $this->Hopitale = $hopitale;
+
+        return $this;
+    }
+
+    /**
+     * Get hopitale
+     *
+     * @return \AppBundle\Entity\Hopitale
+     */
+    public function getHopitale()
+    {
+        return $this->Hopitale;
     }
 }

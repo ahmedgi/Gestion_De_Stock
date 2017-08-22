@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h2 class="page-header"> Modifier une Categorie</h2>
-
+<div class="">
+<h3 class="page-header"> <i class="fa fa-plus" aria-hidden="true"></i>
+ Modifier une Categorie</h3>
+<p>Entrez les informations ci-dessous</p>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_start(form) }}
+					{{ form_widget(form) }}
+					<input type="submit" value="Modifier Categorie"  class="btn btn-primary"/>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

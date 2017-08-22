@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="header">Maintenance : </h2>
+<table class="searchbar">
+  <tbody>
+    <tr>
+      <form method='post'>
+        <td><b>Categorie : </b></td>
+        <td class="col-md-4">
+          <div id="gh-cat-box" >
+            <select  title="Select a category for search" class="gh-sb gh-sprRetina" size="1" id="gh-cat" name="categorie">
+              <option selected="selected" value="0">All Categories</option>
+              {% for categorie in categories %}
+              <option {% if session.get('categorie')==categorie.Name %} {{'selected'}} {% endif %}>{{categorie.Name}}</option>
+              {%endfor%}
+            </select>
+          </div>
+        </td>
+        <td> <b>Intervention :</b></td>
+        <td class="col-md-4">
+          <div id="gh-cat-box" >
+            <select  title="Select a category for search" class="gh-sb gh-sprRetina" size="1" id="gh-cat" name="intervention">
+              <option selected="selected" value="0">All Articles</option>
+              <option value="1" {% if session.get('intervention')=='1' %} {{'selected'}} {% endif %}>Préventive</option>
+              <option value="2" {% if session.get('intervention')=='2' %} {{'selected'}} {% endif %}>Curative</option>
+            </select>
+          </div>
+        </td>
+        <td>  <input type="submit" class="btn btn-primary pull-right" value="search"/></td>
+      </form>
+    </tr>
+  </tbody>
+</table>
+<hr/>
+  <table id="example" class="table table-bordered " style="margin-bottom:5px;" role="grid">
+    <thead>
+      <tr>
+       <th>#</th>
+       <th>Lieu</th>
+       <th>Designation</th>
+       <th>Date_Mise_en_service</th> 
+       <th>Action</th>
+      </tr> 
+    </thead> 
+    <tbody> 
+      {% for article in articles %}
+      <tr> 
+        <th scope="row">{{article.id}}</th>
+        <td>{{article.getHopitale().name}}</td> 
+        <td>{{article.Designation}}</td> 
+        <td>{{article.DateService|date("m/d/Y")}}</td> 
+        <td>
+          <a href="/article/details/{{article.id}}" class="btn btn-info">Details</a>
+          <a href="/article/edit/{{article.id}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+          <a href="/article/delete/{{article.id}}" class="confirmModal btn btn-danger" ><i class="fa fa-trash-o fa-lg"></i> </a>
+        </td>
+      </tr> 
+      {% endfor %} 
+    </tbody> 
+  </table>
+
+  <div id="dialog-confirm" title="Confirmation de la suppression" style="display:none;">
+    <p>
+      <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+      Etes-vous sûr de vouloir supprimer cet élément ?
+     </p>
+  </div>
+  
+
+
+{% endblock %}

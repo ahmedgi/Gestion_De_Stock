@@ -93,7 +93,7 @@ class CategorieController extends Controller
             $this->addFlash(
                 'notice',
                 "la Categorie est bien modifier");
-            return $this->redirectToRoute('Categorie_liste');
+            return $this->redirectToRoute('categorie_liste');
         }
 
         return $this->render('Categorie/edit.html.twig',

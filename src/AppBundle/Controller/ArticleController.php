@@ -155,8 +155,10 @@ class ArticleController extends Controller
         $Hopitales = $this->getDoctrine()
         ->getRepository('AppBundle:Hopitale')
         ->findAll();
-
-
+        $filename=new File($this->getParameter('Articles_directory').'/'.$Article->getBonLivraison());
+        $Article->setBonLivraison(
+            new File($this->getParameter('Articles_directory').'/'.$Article->getBonLivraison())
+        );
         $form = $this->createFormBuilder($Article)
         ->add('Designation', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
         ->add('Marque', TextType::class,array('attr' =>array('class'=>'form-control','style'=>'margin-bottom:15px')))
@@ -205,13 +207,13 @@ class ArticleController extends Controller
             );
 
 
-
             $em=$this->getDoctrine()->getManager();
             $Article=$em->getRepository('AppBundle:Article')->find($id);
 
             $Article->setCategorie($Categorie);
             $Article->setService($Service);
             $Article->sethopitale($Hopitale);
+            $Article->setBonLivraison(basename($filename));
 
             $Article->setDesignation($Designation);
             $Article->setMarque($Marque);
@@ -228,6 +230,7 @@ class ArticleController extends Controller
             $this->addFlash(
                 'notice',
                 "l'article est bien modifier");
+
             return $this->redirectToRoute('article_liste');
         }
 

@@ -60,7 +60,7 @@ class MaintenanceController extends Controller
             $articlecurative=array();
             foreach($Articles as $key => $value) {
                 $currentdate=new \DateTime('now');
-                if($value->getDateService()->diff($currentdate)->y >=4){
+                if($value->getDateService()->diff($currentdate)->y >=4 || $value->getEtat()=='En Panne'){
                     $articlecurative[]=$value;
                 }else{
                     $articlePreventive[]=$value;

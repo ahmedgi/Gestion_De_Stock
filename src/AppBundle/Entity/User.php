@@ -1,329 +1,121 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity
+ * @UniqueEntity(fields="email", message="This email address is already in use")
  */
-class User implements UserInterface,\Serializable
+class User implements UserInterface
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\Id;
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="security_mask", type="integer")
+     * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $security_mask;
+    protected $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="FirstName", type="string", length=255)
+     * @ORM\Column(type="string", length=40)
      */
-    private $FirstName;
-        /**
-     * @var string
-     *
-     * @ORM\Column(name="LastName", type="string", length=255)
-     */
-    private $LastName;
+    protected $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Username", type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=50)
      */
-    private $username;
+    protected $role;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(max=4096)
      */
-    private $password;
+    protected $plainPassword;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
-    private $email;
+    protected $password;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tel", type="string", length=255)
-     */
-    private $tel;
-
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
-
-    public function __construct()
+    public function eraseCredentials()
     {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        return null;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
+    public function setRole($role = null)
+    {
+        $this->role = $role;
+    }
+
+    public function getRoles()
+    {
+        return [$this->getRole()];
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username)
+    public function setName($name)
     {
-        $this->username = $username;
-
-        return $this;
+        $this->name = $name;
     }
 
-    /**
-     * Get username
-     *
-     * @return string
-     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * Set tel
-     *
-     * @param string $tel
-     *
-     * @return User
-     */
-    public function setTel($tel)
+    public function setEmail($email)
     {
-        $this->tel = $tel;
-
-        return $this;
+        $this->email = $email;
     }
 
-    /**
-     * Get tel
-     *
-     * @return string
-     */
-    public function getTel()
+    public function getPassword()
     {
-        return $this->tel;
+        return $this->password;
     }
 
-    /**
-     * Set securityMask
-     *
-     * @param integer $securityMask
-     *
-     * @return User
-     */
-    public function setSecurityMask($securityMask)
+    public function setPassword($password)
     {
-        $this->security_mask = $securityMask;
-
-        return $this;
+        $this->password = $password;
     }
 
-    /**
-     * Get securityMask
-     *
-     * @return integer
-     */
-    public function getSecurityMask()
+    public function getPlainPassword()
     {
-        return $this->security_mask;
+        return $this->plainPassword;
     }
 
-    public function getRoles()
+    public function setPlainPassword($plainPassword)
     {
-        return array('ROLE_USER');
+        $this->plainPassword = $plainPassword;
     }
-    
-    public function eraseCredentials()
-    {
-    }
-   
+
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
         return null;
-    }
-
-
-    /**
-     * Set firstName
-     *
-     * @param string $firstName
-     *
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->FirstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->FirstName;
-    }
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->LastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->LastName;
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt
-        ) = unserialize($serialized);
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     *
-     * @return User
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
     }
 }

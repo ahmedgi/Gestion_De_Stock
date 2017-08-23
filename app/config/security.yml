@@ -1,18 +1,20 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/Maintenance, roles: ROLE_USER }
+        - { path: ^/article/*, roles: ROLE_USER }
+        - { path: ^/categorie/*, roles: ROLE_USER }
+        - { path: ^/Service/*, roles: ROLE_USER }
+        - { path: ^/Hopitale/*, roles: ROLE_USER }
+        - { path: ^/Statistique, roles: ROLE_USER }
+    access_denied_url: /login
     encoders:
-        AppBundle\Entity\User:
-            algorithm: bcrypt
-
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+        AppBundle\Entity\User: bcrypt
     providers:
-        our_db_provider:
-            entity:
-                class: AppBundle:User
-                # if you're using multiple entity managers
-                # manager_name: customer
-
+        database_users:
+            entity: { class: AppBundle:User, property: email }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -20,13 +22,13 @@ security:
             security: false
 
         main:
-            pattern:    ^/
-            http_basic: ~
-            provider: our_db_provider
             anonymous: ~
-            form_login:
-                login_path: login
-                check_path: login
+            guard:
+                authenticators:
+                    - app.form_login_authenticator
+            logout:
+                path: /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

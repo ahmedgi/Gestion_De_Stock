@@ -9,11 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="Home")
+     * @Route("/", name="welcome")
      */
     public function HomeAction()
     {
-
+    	if (false === $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+   			 // user is logged in
+    		return $this->redirectToRoute('login');
+		}
         return $this->render('default/home.html.twig');
     }
    

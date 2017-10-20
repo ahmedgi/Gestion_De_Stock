@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class='container'>
 <h2 class="header">Maintenance : </h2>
 <table class="searchbar">
   <tbody>
@@ -17,23 +18,25 @@
             </select>
           </div>
         </td>
-        <td> <b>Intervention :</b></td>
+        <td> <b>Service :</b></td>
         <td class="col-md-4">
           <div id="gh-cat-box" >
-            <select  title="Select a category for search" class="gh-sb gh-sprRetina" size="1" id="gh-cat" name="intervention">
-              <option selected="selected" value="0">All Articles</option>
-              <option value="1" {% if session.get('intervention')=='1' %} {{'selected'}} {% endif %}>Préventive</option>
-              <option value="2" {% if session.get('intervention')=='2' %} {{'selected'}} {% endif %}>Curative</option>
+            <select  title="Select a category for search" class="gh-sb gh-sprRetina" size="1" id="gh-cat" name="service">
+              <option selected="selected" value="0">All Services</option>
+              {% for service in services %}
+              <option {% if session.get('service')==service.nom %} {{'selected'}} {% endif %} >{{ service.nom}}</option>
+              {%endfor%}
             </select>
           </div>
-        </td>
+        </td >
         <td>  <input type="submit" class="btn btn-primary pull-right" value="search"/></td>
       </form>
     </tr>
   </tbody>
 </table>
+</div>
 <hr/>
-  <table id="example" class="table table-bordered " style="margin-bottom:5px;" role="grid">
+  <table id="maintenancetable" class="table table-bordered datatbl" style="margin-bottom:5px;" role="grid">
     <thead>
       <tr>
        <th>#</th>
@@ -51,9 +54,13 @@
         <td>{{article.Designation}}</td> 
         <td>{{article.DateService|date("m/d/Y")}}</td> 
         <td>
-          <a href="/article/details/{{article.id}}" class="btn btn-info">Details</a>
-          <a href="/article/edit/{{article.id}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
-          <a href="/article/delete/{{article.id}}" class="confirmModal btn btn-danger" ><i class="fa fa-trash-o fa-lg"></i> </a>
+          {% if not article.getIntervention() %}
+            <a href="/Maintenance/intervention/{{article.id}}" class="btn btn-info">Générer L'intervention</a>
+          {%endif%}
+          {% if article.getIntervention() %}
+            <a href="/Maintenance/intervention/details/{{article.getIntervention().id}}" class="btn btn-info">Voir L'intervention</a>
+            <a href="/Maintenance/delete/intervention/{{article.id}}" class="confirmModal btn btn-danger">Annuler L'intervention</a>
+          {%endif%}
         </td>
       </tr> 
       {% endfor %} 
@@ -63,7 +70,7 @@
   <div id="dialog-confirm" title="Confirmation de la suppression" style="display:none;">
     <p>
       <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-      Etes-vous sûr de vouloir supprimer cet élément ?
+        Etes-vous sûr de vouloir supprimer cet élément ?
      </p>
   </div>
   

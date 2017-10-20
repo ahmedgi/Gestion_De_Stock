@@ -22,7 +22,7 @@ body{
 }
 
 .mytable th,td{
-	padding: 10px;
+	margin: 10px !important;
     text-align: left;
 }
 .btn-theme03{
@@ -34,9 +34,7 @@ body{
     text-align: center;
 }
 
-.dash td {
-    width: 10%;
-}
+
 .dash i {
     font-size: 4em;
     margin-bottom: 10px;
@@ -95,6 +93,13 @@ a {
     margin: 0px;
     color: #191970;
 }
-
+#maintenancetable_wrapper .dataTables_filter {
+display: none;
+}
+.grey-panel{
+    border: 1px solid #CCC;
+    margin-bottom: 15px;
+    padding: 0 15px 15px;
+}
 
 

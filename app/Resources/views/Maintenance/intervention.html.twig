@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<a class="btn btn-info pull-right" style="margin-right:15px;" href="/Maintenance"> Back To Maintenance page</a>
+<h4 class="page-header"><i class="fa fa-plus" aria-hidden="true"></i> Générer une intervention sur l'article {{article.Designation}}</h4>
+<p class="col-md-12">Entrez les informations ci-dessous</p>
+
+<div class="col-md-12">
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label>Etat : </label>
+				<div id="gh-cat-box">
+					<select class="gh-sb gh-sprRetina" id="gh-cat" name="name">
+						<option>Currative</option>
+						<option>cpgnitive</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">{{ form_label(form.rapport) }} : {{ form_widget(form.rapport) }} {{ form_errors(form. rapport) }}</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class="col-md-6">
+			<div class="form-group">
+				<input type="submit" value="Generer" style="margin-top:25px" class="btn btn-primary"/>
+			</div>
+		</div>
+	</div>
+	{{ form_end(form) }}
+</div>
+
+{% endblock %}

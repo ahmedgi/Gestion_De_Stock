@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Service;
+use AppBundle\Entity\Intervention;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Archive;
@@ -133,6 +134,11 @@ class Article
         $this->Archives = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToOne(targetEntity="Intervention", mappedBy="Article")
+     * @ORM\JoinColumn(name="Intervention_id", referencedColumnName="id")
+     */
+    private $intervention;
 
     /**
      * Get id
@@ -514,5 +520,29 @@ class Article
     public function getHopitale()
     {
         return $this->Hopitale;
+    }
+
+    /**
+     * Set intervention
+     *
+     * @param \AppBundle\Entity\Intervention $intervention
+     *
+     * @return Article
+     */
+    public function setIntervention(\AppBundle\Entity\Intervention $intervention = null)
+    {
+        $this->intervention = $intervention;
+
+        return $this;
+    }
+
+    /**
+     * Get intervention
+     *
+     * @return \AppBundle\Entity\Intervention
+     */
+    public function getIntervention()
+    {
+        return $this->intervention;
     }
 }

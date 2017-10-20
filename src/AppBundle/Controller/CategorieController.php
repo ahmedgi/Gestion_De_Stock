@@ -109,13 +109,20 @@ class CategorieController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Categorie=$em->getRepository('AppBundle:Categorie')->find($id);
 
-        $em->remove($Categorie);
-        $em->flush();
-        $em->flush();
-        $this->addFlash(
-            'notice',
-            "la categorie est bien supprimer");
-        return $this->redirectToRoute('categorie_liste');
+        if(count($Categorie->getArticles())==0){
+            $em->remove($Categorie);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                "la categorie est bien supprimer");
+            return $this->redirectToRoute('categorie_liste');
+        }else{
+                $this->addFlash(
+                'erreur',
+                "la categorie selectionner contient des articles");
+            return $this->redirectToRoute('categorie_liste');
+
+        }
 
     }
 

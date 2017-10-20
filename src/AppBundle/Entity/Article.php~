@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Service;
+use AppBundle\Entity\Intervention;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Archive;
@@ -133,6 +134,11 @@ class Article
         $this->Archives = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToOne(targetEntity="Intervention", inversedBy="Article")
+     * @ORM\JoinColumn(name="Intervention_id", referencedColumnName="id")
+     */
+    private $intervention;
 
     /**
      * Get id

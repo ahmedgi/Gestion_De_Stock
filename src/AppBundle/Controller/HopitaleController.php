@@ -112,13 +112,20 @@ class HopitaleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Hopitale=$em->getRepository('AppBundle:Hopitale')->find($id);
 
-        $em->remove($Hopitale);
-        $em->flush();
-        $em->flush();
-        $this->addFlash(
-            'notice',
-            "l'hopitale est bien supprimer");
-        return $this->redirectToRoute('Hopitale_liste');
+        if(count($Hopitale->getArticles())==0 && count($Hopitale->getServices())==0){
+            $em->remove($Hopitale);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                "l'Hopitale est bien supprimer");
+            return $this->redirectToRoute('Hopitale_liste');
+        }else{
+                $this->addFlash(
+                'erreur',
+                "l'Hopitale selectionner contient des Service ou bien est associer a une article");
+            return $this->redirectToRoute('Hopitale_liste');
+
+        }
 
     }
 

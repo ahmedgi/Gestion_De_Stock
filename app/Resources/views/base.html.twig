@@ -44,22 +44,9 @@
             <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-barcode"></i> Articles
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="/article"><i class="fa fa-barcode"></i> Liste des articles</a></li>
-                <li class="divider"></li>
-                <li><a href="/article/create"><i class="fa fa-plus"></i> Ajouter Article</a></li>
-                <li class="divider"></li>
-                <li><a href="/article/import"><i class="fa fa-plus"></i> Importer Article</a></li>
-              </ul>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-cog"></i> Paramètres
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#"><i class="fa fa-cog"></i> Paramètres</a></li>
-                <li class="divider"></li>
                 <li><a href="/categorie/list"><i class="fa fa-barcode"></i> Catégories</a></li>
                 <li class="divider"></li>
                 <li><a href="/categorie/create"> <i class="fa fa-plus"></i> Ajouter Catégorie</a></li>
@@ -73,6 +60,10 @@
                 <li><a href="/Service/list"><i class="fa fa-barcode"></i> Services</a></li>
                 <li class="divider"></li>
                 <li><a href="/Service/create"> <i class="fa fa-plus"></i> Ajouter Un Service</a></li>
+                <li class="divider"></li>
+                <li><a href="/Maintenance"><i class="fa fa-cogs"></i> Maintenance</a></li>
+                <li class="divider"></li>
+                <li><a href="/Statistique"><i class="fa fa-area-chart" aria-hidden="true"></i> Statistique</a></li>
               </ul>
           </li>
           <li class="dropdown">
@@ -81,14 +72,14 @@
               </a>
               <ul class="dropdown-menu extended pull-right">
                 <div class="notify-arrow"></div>
-                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
               </ul>
           </li>
           {%endif%}
           {% if app.user == null %}
-          <li><a href="/login"><i class="fa fa-home"></i> Login</a></li>
-          <li><a href="/register"><i class="fa fa-home"></i> Register</a></li>
+          <li><a href="/login"><i class="fa fa-btn fa-sign-in"></i> Login</a></li>
+          <li><a href="/register"><i class="fa fa-btn fa-user"></i> Register</a></li>
           {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
@@ -100,6 +91,9 @@
             <div class="col-md-12">
                 {% for flash_message in app.flashes('notice')%}
                 <div class="alert alert-success">{{flash_message}}</div>
+                {%endfor%}
+                {% for flash_message in app.flashes('erreur')%}
+                <div class="alert alert-danger">{{flash_message}}</div>
                 {%endfor%}
                 <section class="wrapper">
                   <div class="container">

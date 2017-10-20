@@ -113,13 +113,20 @@ class ServiceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Service=$em->getRepository('AppBundle:Service')->find($id);
 
-        $em->remove($Service);
-        $em->flush();
-        $em->flush();
-        $this->addFlash(
-            'notice',
-            "le Servicee est bien supprimer");
-        return $this->redirectToRoute('Service_liste');
+        if(count($Service->getArticles())==0){
+            $em->remove($Service);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                "la categorie est bien supprimer");
+            return $this->redirectToRoute('categorie_liste');
+        }else{
+                $this->addFlash(
+                'erreur',
+                "le service selectionner contient des articles");
+            return $this->redirectToRoute('Service_liste');
+
+        }
 
     }
 

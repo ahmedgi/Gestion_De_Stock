@@ -260,7 +260,6 @@ class ArticleController extends Controller
 
         $em->remove($Article);
         $em->flush();
-        $em->flush();
         $this->addFlash(
             'notice',
             "l'article est bien supprimer");

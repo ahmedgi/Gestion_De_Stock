@@ -26,7 +26,9 @@ $(document).ready(function() {
     $(function(){
         $("#example").dataTable();
     });
+    $(function(){
+        $("#maintenancetable").dataTable();
+    });
 
-    $('.dataTables_filter').after($('#afterr'));
 
 });

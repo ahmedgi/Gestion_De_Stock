@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+	<div></div>
+		<h3><i class="fa fa-edit"></i> Profile</h3>
+		<p>Please update the information below</p>
+		<div class='col-md-12'>
+			<form method="post">
+				<div class='row'>
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="first_name">Prenom :</label> 
+	                        <div class="controls">
+	                        	<input name="first_name" value="{{app.user.prenom}} " class="form-control" id="first_name" required="required" type="text">
+	                        </div>
+	                    </div>
+					</div>
+
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="first_name">Nom :</label> 
+	                        <div class="controls">
+	                        	<input name="last_name" value="{{app.user.nom}}" class="form-control" id="last_name" required="required" type="text">
+	                        </div>
+	                    </div>
+					</div>
+
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="first_name">Tél :</label> 
+	                        <div class="controls">
+	                        	<input name="tel" value="{{app.user.tel}}" class="form-control" id="tel" required="required" type="text"/>
+	                        </div>
+	                    </div>
+					</div>
+
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="email">Email :</label> 
+	                        <div class="controls">
+	                        	<input name="email" value="{{app.user.email}}" class="form-control" id="email" required="required" type="text"/>
+	                        </div>
+	                    </div>
+					</div>
+
+				</div>
+				<div class='row'>
+					<div class='col-md-4'>
+						<div class='form-group'>
+							<input name="updateprofile" value="Update" class="btn btn-theme03" type="submit">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<h3><i class="fa fa-key"></i> Change Password</h3>
+		<p>Changer Votre Mot de passe</p>
+		<div class='col-md-12'>
+			<form method="post">
+				<div class='row'>
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="Password">Old password :</label> 
+	                        <div class="controls">
+	                        	<input name="old_password"  class="form-control" id="password" required="required" type="password"/>
+	                        </div>
+	                    </div>
+					</div>
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="Newpassword">New Password :</label> 
+	                        <div class="controls">
+	                        	<input name="Npassword"  class="form-control" id="Npassword" required="required" type="password"/>
+	                        </div>
+	                    </div>
+					</div>
+					<div class='col-md-4'>
+						<div class="form-group">
+	                        <label for="Ncpassword">Confirm New Password :</label> 
+	                        <div class="controls">
+	                        	<input name="Ncpassword"  class="form-control" id="Ncpassword" required="required" type="password"/>
+	                        </div>
+	                    </div>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-4'>
+						<div class='form-group'>
+							<input name="updatepassword" value="Update" class="btn btn-theme03" type="submit">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+</div>
+
+{% endblock %}

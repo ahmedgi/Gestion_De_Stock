@@ -274,11 +274,11 @@ class ArticleController extends Controller
         // get the service
         $TBS = $this->get('opentbs');
         // load your template
-        $TBS->LoadTemplate($directoryPath = $this->container->getParameter('kernel.root_dir') . '/../web/Templates/Demande_de_stage.docx');
+        $TBS->LoadTemplate($directoryPath = $this->container->getParameter('kernel.root_dir') . '/../web/Templates/BonDecharge.docx');
         // replace variables
         $TBS->MergeField('client', array('name' => 'Belhadj Ahmed'));
         // send the file
-        $TBS->Show(OPENTBS_DOWNLOAD, 'file_name.docx');
+        $TBS->Show(OPENTBS_DOWNLOAD, 'bson_décharge.docx');
         $this->addFlash(
             'notice',
             "l'article est bien generer");
